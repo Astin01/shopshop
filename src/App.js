@@ -8,6 +8,8 @@ import axios from "axios";
 import Recent from "./routes/recent";
 import { Login } from "./routes/login";
 import { SignIn } from "./routes/sigin";
+import { ckLogin } from "./ckLogin";
+
 // import { Detail } from "./routes/detail";
 // import { Cart } from "./routes/cart";
 const Detail = lazy(async () => await import("./routes/detail.js"));
@@ -18,6 +20,8 @@ function App() {
   let [shoes, setShoes] = useState(data);
   let [count, setCount] = useState(0);
   let [loading, setLoading] = useState(false);
+  let [login, setLogin] = useState(0);
+  let [user, setUser] = useState({});
   let shoesdata = shoes.map((data) => (
     <Shoe id={data.id} title={data.title} price={data.price}></Shoe>
   ));
@@ -27,6 +31,10 @@ function App() {
       localStorage.setItem("watched", JSON.stringify([]));
     }
   }, []);
+
+  useEffect(() => {
+    ckLogin({ setLogin, setUser });
+  }, [login]);
   function dataServer() {
     setLoading(true);
     if (count == 0) {
@@ -63,16 +71,28 @@ function App() {
     <div div className="App">
       <Navbar bg="dark" variant="dark" className="app-navbar">
         <Container>
-          <Navbar.Brand href="#home">Shop</Navbar.Brand>
+          <Navbar.Brand href="/">Shop</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={() => navigate("/")}>Home</Nav.Link>
             <Nav.Link onClick={() => navigate("/event")}>Event</Nav.Link>
             <Nav.Link onClick={() => navigate("/cart")}>Cart</Nav.Link>
           </Nav>
-          <Nav className="ms-auto">
-            <Nav.Link onClick={() => navigate("/login")}>로그인</Nav.Link>
-            <Nav.Link onClick={() => navigate("/signin")}>회원가입</Nav.Link>
-          </Nav>
+
+          {login == 0 ? (
+            <Nav className="ms-auto">
+              {" "}
+              <Nav.Link onClick={() => navigate("/login")}>로그인</Nav.Link>
+              <Nav.Link onClick={() => navigate("/signin")}>회원가입</Nav.Link>
+            </Nav>
+          ) : (
+            <Nav className="ms-auto">
+              {" "}
+              <Nav.Link onClick={() => navigate("/mypage")}>{user.id}</Nav.Link>
+              <Nav.Link onClick={() => navigate("/logout")}>
+                로그아웃
+              </Nav.Link>{" "}
+            </Nav>
+          )}
         </Container>
       </Navbar>
       <Suspense>

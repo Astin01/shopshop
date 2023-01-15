@@ -60,14 +60,20 @@ function Detail(props) {
           <h4 className="pt-5">{product.title}</h4>
           <p>{product.content}</p>
           <p>{product.price}</p>
-          <input type="text" onChange={(e) => setInput(e.target.value)} />
+          <input
+            type="number"
+            id="points"
+            name="points"
+            step="1"
+            onChange={(e) => setInput(e.target.value)}
+          />
           <button
             onClick={() =>
               dispatch(
                 inCart({
                   id: product.id,
                   name: product.title,
-                  count: 1,
+                  count: input,
                 })
               )
             }

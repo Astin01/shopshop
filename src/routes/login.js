@@ -7,13 +7,13 @@ function Login() {
         <Row>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>아이디</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
+            <Form.Control name="id" type="email" placeholder="Enter email" />
           </Form.Group>
         </Row>
         <Row>
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>비밀번호</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+            <Form.Control name="pw" type="password" placeholder="Password" />
           </Form.Group>
         </Row>
         <Row>
