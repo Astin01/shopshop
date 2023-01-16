@@ -26,10 +26,23 @@ let cartItem = createSlice({
   },
 });
 
-export let { increase, inCart, outCart } = cartItem.actions;
+let user = createSlice({
+  name: "user",
+  initialState: { name: "", address: "", tel: "", id: "", pw: "" },
+  reducers: {
+    changeUi(state, action) {
+      state.name = action.payload.name;
+      state.tel = action.payload.tel;
+      state.id = action.payload.id;
+      state.pw = action.payload.pw;
+    },
+  },
+});
+export let { increase, inCart, outCart, changeUi } = cartItem.actions;
 
 export default configureStore({
   reducer: {
     cartItem: cartItem.reducer,
+    user: user.reducer,
   },
 });

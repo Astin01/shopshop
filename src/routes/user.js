@@ -1,10 +1,8 @@
-import { Button, Container, Form, Row } from "react-bootstrap";
-import { onSignIn } from "../utils/onSignIn";
-
-function SignIn() {
+import { Col, Container, Form, ListGroup, Row, Button } from "react-bootstrap";
+function User() {
   return (
     <Container>
-      <Form onSubmit={onSignIn}>
+      <Form>
         <Row>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>이름</Form.Label>
@@ -43,12 +41,11 @@ function SignIn() {
         </Row>
         <Row>
           <Button variant="primary" type="submit">
-            회원가입
+            수정하기
           </Button>
         </Row>
       </Form>
     </Container>
   );
 }
-
-export { SignIn };
+export default User;

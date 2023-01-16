@@ -8,7 +8,10 @@ import axios from "axios";
 import Recent from "./routes/recent";
 import { Login } from "./routes/login";
 import { SignIn } from "./routes/sigin";
-import { ckLogin } from "./ckLogin";
+import { ckLogin } from "./utils/ckLogin";
+import Mypage from "./routes/mypage";
+import UserInfo from "./routes/user";
+import { useSelector } from "react-redux";
 
 // import { Detail } from "./routes/detail";
 // import { Cart } from "./routes/cart";
@@ -21,7 +24,11 @@ function App() {
   let [count, setCount] = useState(0);
   let [loading, setLoading] = useState(false);
   let [login, setLogin] = useState(0);
-  let [user, setUser] = useState({});
+  // let [user, setUser] = useState({});
+  let user = useSelector((state) => {
+    return state;
+  });
+  console.log(user);
   let shoesdata = shoes.map((data) => (
     <Shoe id={data.id} title={data.title} price={data.price}></Shoe>
   ));
@@ -33,7 +40,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    ckLogin({ setLogin, setUser });
+    ckLogin({ setLogin });
   }, [login]);
   function dataServer() {
     setLoading(true);
@@ -126,6 +133,9 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/mypage" element={<Mypage />}>
+            <Route path="user" element={<UserInfo />} />
+          </Route>
         </Routes>
       </Suspense>
     </div>

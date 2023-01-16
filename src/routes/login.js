@@ -1,5 +1,5 @@
 import { Button, Container, Form, Row } from "react-bootstrap";
-import { onLogin } from "../onLogin";
+import { onLogin } from "../utils/onLogin";
 function Login() {
   return (
     <Container>
@@ -7,7 +7,7 @@ function Login() {
         <Row>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>아이디</Form.Label>
-            <Form.Control name="id" type="email" placeholder="Enter email" />
+            <Form.Control name="id" type="text" placeholder="Enter email" />
           </Form.Group>
         </Row>
         <Row>
