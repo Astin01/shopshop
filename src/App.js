@@ -24,11 +24,9 @@ function App() {
   let [count, setCount] = useState(0);
   let [loading, setLoading] = useState(false);
   let [login, setLogin] = useState(0);
-  // let [user, setUser] = useState({});
-  let user = useSelector((state) => {
-    return state;
-  });
-  console.log(user);
+
+  let [user, setUser] = useState({});
+
   let shoesdata = shoes.map((data) => (
     <Shoe id={data.id} title={data.title} price={data.price}></Shoe>
   ));
@@ -40,8 +38,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    ckLogin({ setLogin });
+    ckLogin({ setLogin, setUser });
   }, [login]);
+
   function dataServer() {
     setLoading(true);
     if (count == 0) {

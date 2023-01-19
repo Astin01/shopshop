@@ -2,15 +2,16 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 let cartItem = createSlice({
   name: "cartItem",
-  initialState: [
-    { id: 0, name: "White and Black", count: 2 },
-    { id: 1, name: "Red Knit", count: 1 },
-    { id: 2, name: "Grey Yordan", count: 1 },
-  ],
+  initialState: [],
   reducers: {
     increase(state, id) {
       const i = state.findIndex((element) => element.id == id.payload);
       state[i].count += 1;
+    },
+    decrease(state, id) {
+      const i = state.findIndex((element) => element.id == id.payload);
+      if (state[i].count > 1) state[i].count -= 1;
+      else alert("최소 수량은 1개입니다");
     },
     inCart(state, product) {
       const i = state.findIndex((element) => element.id == product.payload.id);
@@ -38,7 +39,9 @@ let user = createSlice({
     },
   },
 });
-export let { increase, inCart, outCart, changeUi } = cartItem.actions;
+export let { increase, decrease, inCart, outCart } = cartItem.actions;
+
+export let { changeUi } = user.actions;
 
 export default configureStore({
   reducer: {

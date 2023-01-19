@@ -1,6 +1,6 @@
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { increase, outCart } from "../store.js";
+import { increase, decrease, outCart } from "../store.js";
 
 function Cart() {
   let item = useSelector((state) => {
@@ -13,6 +13,7 @@ function Cart() {
       id={data.id}
       name={data.name}
       count={data.count}
+      price={data.price}
     ></Item>
   ));
   return (
@@ -23,7 +24,7 @@ function Cart() {
           <th>상품명</th>
           <th>수량</th>
           <th>변경하기</th>
-          <th>삭제하기</th>
+          <th>가격</th>
         </tr>
       </thead>
       <tbody>{cartItem}</tbody>
@@ -31,7 +32,7 @@ function Cart() {
   );
 }
 
-function Item({ number, id, name, count }) {
+function Item({ number, id, name, count, price }) {
   const dispatch = useDispatch();
   return (
     <tr>
@@ -40,10 +41,10 @@ function Item({ number, id, name, count }) {
       <td>{count}</td>
       <td>
         <button onClick={() => dispatch(increase(id))}>+</button>
-      </td>
-      <td>
+        <button onClick={() => dispatch(decrease(id))}>-</button>
         <button onClick={() => dispatch(outCart(id))}>X</button>
       </td>
+      <td>{price * count}</td>
     </tr>
   );
 }

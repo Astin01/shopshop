@@ -1,21 +1,48 @@
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { dispatch, useDispatch, useSelector } from "react-redux";
 import { changeUi } from "../store";
 
-function ckLogin({ setLogin }) {
-  let dispatch = useDispatch();
+function ckLogin({ setLogin, setUser }) {
+  // let dispatch = useDispatch();
+  // axios({
+  //   method: "get",
+  //   url: "/ckLogin",
+  // }).then((result) => {
+  //   if (result.data == "로그인안하셨는데요?") {
+  //     setLogin(0);
+  //   } else {
+  //     dispatch(changeUi(result.data.user));
+  //     console.log(result.data);
+  //     setLogin(1);
+  //   }
+  // });
   axios({
     method: "get",
-    url: "/cklogin",
+    url: "/ckLogin",
   }).then((result) => {
     if (result.data == "로그인안하셨는데요?") {
       setLogin(0);
     } else {
-      dispatch(changeUi(result.data.user));
-      // console.log(result.data);
+      // user.changeUi(result.data.user);
+      console.log(result.data);
+      setUser(result.data.user);
       setLogin(1);
     }
   });
+  // return (dispatch) => {
+  //   axios({
+  //     method: "get",
+  //     url: "/ckLogin",
+  //   }).then((result) => {
+  //     if (result.data == "로그인안하셨는데요?") {
+  //       setLogin(0);
+  //     } else {
+  //       console.log(result);
+  //       dispatch(changeUi(result.data.user));
+  //       setLogin(1);
+  //     }
+  //   });
+  // };
 }
 
 export { ckLogin };
