@@ -12,10 +12,14 @@ function Detail(props) {
   let [fade, setFade] = useState("");
   let dispatch = useDispatch();
   useEffect(() => {
-    let watch = localStorage.getItem("watched");
-    let parseWatch = JSON.parse(watch);
-    parseWatch.push(product.title);
-    let jsonWatch = JSON.stringify([...new Set(parseWatch)]);
+    const watch = localStorage.getItem("watched");
+    const parseWatch = JSON.parse(watch);
+    parseWatch.push(product);
+    const newArray = parseWatch.filter(
+      (arr, index, callback) =>
+        index === callback.findIndex((t) => t.id === arr.id)
+    );
+    const jsonWatch = JSON.stringify([...newArray]);
     localStorage.setItem("watched", jsonWatch);
   });
   useEffect(() => {
@@ -80,7 +84,7 @@ function Detail(props) {
             }
             className="btn btn-danger"
           >
-            주문하기
+            장바구니
           </button>
         </div>
       </div>

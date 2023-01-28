@@ -1,7 +1,7 @@
 import { Table } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { increase, decrease, outCart } from "../store.js";
-
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Item from "./item.js";
 function Cart() {
   let item = useSelector((state) => {
     return state.cartItem;
@@ -16,6 +16,7 @@ function Cart() {
       price={data.price}
     ></Item>
   ));
+  const navigate = useNavigate();
   return (
     <Table>
       <thead>
@@ -28,24 +29,12 @@ function Cart() {
         </tr>
       </thead>
       <tbody>{cartItem}</tbody>
+      <tr>
+        <td>
+          <button onClick={() => navigate("/checkout")}>결제하기</button>
+        </td>
+      </tr>
     </Table>
-  );
-}
-
-function Item({ number, id, name, count, price }) {
-  const dispatch = useDispatch();
-  return (
-    <tr>
-      <td>{number + 1}</td>
-      <td>{name}</td>
-      <td>{count}</td>
-      <td>
-        <button onClick={() => dispatch(increase(id))}>+</button>
-        <button onClick={() => dispatch(decrease(id))}>-</button>
-        <button onClick={() => dispatch(outCart(id))}>X</button>
-      </td>
-      <td>{price * count}</td>
-    </tr>
   );
 }
 

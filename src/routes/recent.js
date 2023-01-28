@@ -6,8 +6,8 @@ function Recent({ shoes }) {
   let recentGroup;
   if (parseWatch) {
     recentGroup = parseWatch.map((data) => (
-      <ListGroup.Item action href={`/detail/${data}`}>
-        {data}
+      <ListGroup.Item action href={`/detail/${data.id}`}>
+        {data.title}
       </ListGroup.Item>
     ));
   }

@@ -12,35 +12,30 @@ import { ckLogin } from "./utils/ckLogin";
 import Mypage from "./routes/mypage";
 import UserInfo from "./routes/user";
 import { useSelector } from "react-redux";
+import CheckOut from "./routes/payment";
 
 // import { Detail } from "./routes/detail";
 // import { Cart } from "./routes/cart";
 const Detail = lazy(async () => await import("./routes/detail.js"));
 const Cart = lazy(async () => await import("./routes/cart"));
-
 function App() {
   const navigate = useNavigate();
   let [shoes, setShoes] = useState(data);
   let [count, setCount] = useState(0);
   let [loading, setLoading] = useState(false);
   let [login, setLogin] = useState(0);
-
   let [user, setUser] = useState({});
-
   let shoesdata = shoes.map((data) => (
     <Shoe id={data.id} title={data.title} price={data.price}></Shoe>
   ));
-
   useEffect(() => {
     if (!localStorage.getItem("watched")) {
       localStorage.setItem("watched", JSON.stringify([]));
     }
   }, []);
-
   useEffect(() => {
     ckLogin({ setLogin, setUser });
   }, [login]);
-
   function dataServer() {
     setLoading(true);
     if (count == 0) {
@@ -135,6 +130,7 @@ function App() {
           <Route path="/mypage" element={<Mypage />}>
             <Route path="user" element={<UserInfo />} />
           </Route>
+          <Route path="/checkout" element={<CheckOut />}></Route>
         </Routes>
       </Suspense>
     </div>
