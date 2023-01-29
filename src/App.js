@@ -11,8 +11,9 @@ import { SignIn } from "./routes/sigin";
 import { ckLogin } from "./utils/ckLogin";
 import Mypage from "./routes/mypage";
 import UserInfo from "./routes/user";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CheckOut from "./routes/payment";
+import userInfo from "./utils/userInfo";
 
 // import { Detail } from "./routes/detail";
 // import { Cart } from "./routes/cart";
@@ -25,6 +26,7 @@ function App() {
   let [loading, setLoading] = useState(false);
   let [login, setLogin] = useState(0);
   let [user, setUser] = useState({});
+  let dispatch = useDispatch();
   let shoesdata = shoes.map((data) => (
     <Shoe id={data.id} title={data.title} price={data.price}></Shoe>
   ));
@@ -35,7 +37,9 @@ function App() {
   }, []);
   useEffect(() => {
     ckLogin({ setLogin, setUser });
+    dispatch(userInfo());
   }, [login]);
+
   function dataServer() {
     setLoading(true);
     if (count == 0) {
@@ -78,7 +82,6 @@ function App() {
             <Nav.Link onClick={() => navigate("/event")}>Event</Nav.Link>
             <Nav.Link onClick={() => navigate("/cart")}>Cart</Nav.Link>
           </Nav>
-
           {login == 0 ? (
             <Nav className="ms-auto">
               {" "}
