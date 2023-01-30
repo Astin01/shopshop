@@ -1,6 +1,7 @@
 import { Table, Form, Row, Container, Col, InputGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Item from "./item.js";
+import CheckOutprocess from "../utils/checkoutprocess.js";
 function CheckOut() {
   let item = useSelector((state) => {
     return state.cartItem;
@@ -8,7 +9,11 @@ function CheckOut() {
   let user = useSelector((state) => {
     return state.user;
   });
-  let price;
+  let price = 0;
+  {
+    item.map((item) => (price += item.tprice));
+  }
+  debugger;
   let cartItem = item.map((data, i) => (
     <Item
       key={i}
@@ -88,66 +93,64 @@ function CheckOut() {
             </tr>
             <tr>
               <td>총상품가격</td>
-              <td>{item.map((item) => (price += item.tprice))}</td>
+              <td>{price}</td>
             </tr>
             <tr>
               <td>할인</td>
-              <td></td>
+              <td>0</td>
             </tr>
             <tr>
               <td>배송비</td>
-              <td></td>
+              <td>2500</td>
             </tr>
             <tr>
               <td>총결제금액</td>
-              <td></td>
+              <td>{price + 2500}</td>
             </tr>
             <tr>
               <td>결제방법</td>
-              <td></td>
+              <td>
+                <div>
+                  <form action method="get">
+                    <input type="radio" id="bank" value="banksend" name="pay" />
+                    <label for="bank">계좌이체</label>
+                    <br></br>
+                    <input
+                      type="radio"
+                      id="credit"
+                      value="credit"
+                      name="pay"
+                    />{" "}
+                    <label for="credit">신용/체크카드</label>
+                    <br></br>
+                    <input
+                      type="radio"
+                      id="phone"
+                      value="phone"
+                      name="pay"
+                    />{" "}
+                    <label for="phone">휴대폰</label>
+                    <br></br>
+                    <input
+                      type="radio"
+                      id="nobank"
+                      value="nobank"
+                      name="pay"
+                    />{" "}
+                    <label for="nobank">무통장입금</label>
+                    <br></br>
+                  </form>
+                </div>
+              </td>
             </tr>
           </Table>
         </div>
         <div>
-          <button>결제하기</button>
+          <button onClick={CheckOutprocess}>결제하기</button>
         </div>
       </div>
-
-      <Form>
-        <div className="mb-3">
-          <form action="/action_page.php">
-            {["무통장입금", "신용카드결제", "실시간 계좌이체", "간편결제"].map(
-              (type) => (
-                <div>
-                  <input
-                    type="radio"
-                    id="html"
-                    name="fav_language"
-                    value="HTML"
-                  />
-                    <label for="html">{type}</label>
-                  <br />
-                </div>
-              )
-            )}
-          </form>
-        </div>
-      </Form>
     </>
   );
-}
-
-function Tableform(props) {
-  let array1 = [props.arr];
-  let result = array1.map((text) => {
-    return (
-      <tr>
-        <td>text</td>
-        <td></td>
-      </tr>
-    );
-  });
-  return { result };
 }
 
 export default CheckOut;

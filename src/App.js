@@ -14,6 +14,7 @@ import UserInfo from "./routes/user";
 import { useDispatch, useSelector } from "react-redux";
 import CheckOut from "./routes/payment";
 import userInfo from "./utils/userInfo";
+import CheckOutprocess from "./utils/checkoutprocess";
 
 // import { Detail } from "./routes/detail";
 // import { Cart } from "./routes/cart";
@@ -134,6 +135,7 @@ function App() {
             <Route path="user" element={<UserInfo />} />
           </Route>
           <Route path="/checkout" element={<CheckOut />}></Route>
+          <Route path="/create-payment-intent" element={CheckOutprocess} />
         </Routes>
       </Suspense>
     </div>

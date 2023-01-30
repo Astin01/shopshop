@@ -79,6 +79,7 @@ function Detail(props) {
                   name: product.title,
                   count: input,
                   price: product.price,
+                  tprice: product.price * input,
                 })
               )
             }

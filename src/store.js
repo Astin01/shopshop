@@ -20,7 +20,7 @@ let cartItem = createSlice({
         state[i].id = product.payload.id;
         state[i].name = product.payload.name;
         state[i].price = product.payload.price;
-        state[i].tprice = product.payload.price * product.payload.count;
+        state[i].tprice = product.payload.tprice;
       } else return [...state, product.payload];
     },
     outCart(state, id) {
