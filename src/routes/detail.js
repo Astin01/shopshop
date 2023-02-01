@@ -77,7 +77,7 @@ function Detail(props) {
                 inCart({
                   id: product.id,
                   name: product.title,
-                  count: input,
+                  count: parseInt(input),
                   price: product.price,
                   tprice: product.price * input,
                 })

@@ -16,7 +16,7 @@ let cartItem = createSlice({
     inCart(state, product) {
       const i = state.findIndex((element) => element.id == product.payload.id);
       if (i != -1) {
-        state[i].count += 1;
+        state[i].count += product.payload.count;
         state[i].id = product.payload.id;
         state[i].name = product.payload.name;
         state[i].price = product.payload.price;
