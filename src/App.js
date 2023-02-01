@@ -16,8 +16,6 @@ import CheckOut from "./routes/payment";
 import userInfo from "./utils/userInfo";
 import CheckOutprocess from "./utils/checkoutprocess";
 
-// import { Detail } from "./routes/detail";
-// import { Cart } from "./routes/cart";
 const Detail = lazy(async () => await import("./routes/detail.js"));
 const Cart = lazy(async () => await import("./routes/cart"));
 function App() {
@@ -39,7 +37,7 @@ function App() {
   useEffect(() => {
     ckLogin({ setLogin, setUser });
     dispatch(userInfo());
-  }, [login]);
+  });
 
   function dataServer() {
     setLoading(true);
