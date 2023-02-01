@@ -146,6 +146,9 @@ function CheckOut() {
           </Table>
         </div>
         <div>
+          <form action="/create-checkout-session" method="POST">
+            <button type="submit">Checkout</button>
+          </form>
           <button onClick={CheckOutprocess}>결제하기</button>
         </div>
       </div>

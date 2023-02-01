@@ -37,7 +37,7 @@ function App() {
   useEffect(() => {
     ckLogin({ setLogin, setUser });
     dispatch(userInfo());
-  });
+  }, [login]);
 
   function dataServer() {
     setLoading(true);
