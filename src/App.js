@@ -3,7 +3,7 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { lazy, Suspense, useEffect, useState } from "react";
 import data from "./data.js";
 import { Shoe } from "./Shoelist.js";
-import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Recent from "./routes/recent";
 import { Login } from "./routes/login";
@@ -11,12 +11,12 @@ import { SignIn } from "./routes/sigin";
 import { ckLogin } from "./utils/ckLogin";
 import Mypage from "./routes/mypage";
 import UserInfo from "./routes/user";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import CheckOut from "./routes/payment";
 import userInfo from "./utils/userInfo";
-import CheckOutprocess from "./utils/checkoutprocess";
-import Event from "./routes/Event";
+import Event from "./routes/event";
 import { logresult } from "./utils/onLogin";
+import OrderList from "./routes/orderList";
 
 const Detail = lazy(async () => await import("./routes/detail.js"));
 const Cart = lazy(async () => await import("./routes/cart"));
@@ -48,7 +48,6 @@ function App() {
         .get("https://codingapple1.github.io/shop/data2.json")
         .then((result) => {
           let copy = [...shoes, ...result.data];
-          // copy.push(...result.data);
           setShoes(copy);
           setCount(count + 1);
           setLoading(false);
@@ -61,7 +60,6 @@ function App() {
         .get("https://codingapple1.github.io/shop/data3.json")
         .then((result) => {
           let copy2 = [...shoes, ...result.data];
-          // copy.push(...result.data);
           setShoes(copy2);
           setCount(count + 1);
           setLoading(false);
@@ -133,40 +131,13 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/mypage" element={<Mypage />}>
             <Route path="user" element={<UserInfo />} />
+            <Route path="orderlist" element={<OrderList />} />
           </Route>
           <Route path="/checkout" element={<CheckOut />}></Route>
-          <Route path="/create-payment-intent" element={CheckOutprocess} />
         </Routes>
       </Suspense>
     </div>
   );
 }
 
-// function ServerData(props) {
-//   if (props.count == 0) {
-//     axios
-//       .get("https://codingapple1.github.io/shop/data2.json")
-//       .then((result) => {
-//         let copy = [...props.shoes, ...result.data];
-//         // copy.push(...result.data);
-//         props.setShoes(copy);
-//         props.setCount(props.count + 1);
-//       })
-//       .catch(() => {
-//         console.log("실패");
-//       });
-//   } else {
-//     axios
-//       .get("https://codingapple1.github.io/shop/data3.json")
-//       .then((result) => {
-//         let copy2 = [...props.shoes, ...result.data];
-//         // copy.push(...result.data);
-//         props.setShoes(copy2);
-//         props.setCount(props.count + 1);
-//       })
-//       .catch(() => {
-//         console.log("실패");
-//       });
-//   }
-// }
 export default App;

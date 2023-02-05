@@ -1,6 +1,4 @@
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { changeUi } from "../store";
 
 function ckLogin({ setLogin, setUser }) {
   axios({

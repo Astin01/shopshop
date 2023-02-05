@@ -1,6 +1,6 @@
 import { Table, Form, Row, Container, Col, InputGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import Item from "./item.js";
+import styles from "../css/payment.module.css";
 import React, { useState, useEffect } from "react";
 
 import { loadTossPayments } from "@tosspayments/payment-sdk";
@@ -45,11 +45,12 @@ function CheckOut() {
   }, [pay]);
   return (
     <>
-      <div>
-        <div>
-          <Table>
+      <Container className={styles.container}>
+        <Row>
+          {" "}
+          <Table className={styles.table}>
             <tr>
-              <th>구매자 정보</th>
+              <th style={{ width: "10%" }}>구매자 정보</th>
             </tr>
             <tr>
               <td>이름</td>
@@ -64,9 +65,10 @@ function CheckOut() {
               <td>{user.tel}</td>
             </tr>
           </Table>
-        </div>
-        <div>
-          <Table>
+        </Row>
+        <Row>
+          {" "}
+          <Table className={styles.table}>
             <tr>
               <th>받는사람정보</th>
             </tr>
@@ -87,11 +89,11 @@ function CheckOut() {
               <td></td>
             </tr>
           </Table>
-        </div>
-        <div>
-          <Table>
+        </Row>
+        <Row>
+          <Table className={styles.table}>
             <tr>
-              <th>상품정보</th>
+              <th style={{ width: "30%", paddingLeft: "100px" }}>상품정보</th>
               <th>수량</th>
               <th>가격</th>
             </tr>
@@ -103,11 +105,12 @@ function CheckOut() {
               </tr>
             ))}
           </Table>
-        </div>
-        <div>
-          <Table>
+        </Row>
+        <Row>
+          {" "}
+          <Table className={styles.table}>
             <tr>
-              <th>결제정보</th>
+              <th style={{ width: "10%" }}>결제정보</th>
             </tr>
             <tr>
               <td>총상품가격</td>
@@ -128,41 +131,39 @@ function CheckOut() {
             <tr>
               <td>결제방법</td>
               <td>
-                <div>
-                  <form action method="get">
-                    <input type="radio" id="bank" value="banksend" name="pay" />
-                    <label for="bank">계좌이체</label>
-                    <br></br>
-                    <input
-                      type="radio"
-                      id="credit"
-                      value="credit"
-                      name="pay"
-                    />{" "}
-                    <label for="credit">신용/체크카드</label>
-                    <br></br>
-                    <input
-                      type="radio"
-                      id="phone"
-                      value="phone"
-                      name="pay"
-                    />{" "}
-                    <label for="phone">휴대폰</label>
-                    <br></br>
-                    <input
-                      type="radio"
-                      id="nobank"
-                      value="nobank"
-                      name="pay"
-                    />{" "}
-                    <label for="nobank">무통장입금</label>
-                    <br></br>
-                  </form>
-                </div>
+                <form action method="get">
+                  <input type="radio" id="bank" value="banksend" name="pay" />
+                  <label for="bank">계좌이체</label>
+                  <br></br>
+                  <input
+                    type="radio"
+                    id="credit"
+                    value="credit"
+                    name="pay"
+                  />{" "}
+                  <label for="credit">신용/체크카드</label>
+                  <br></br>
+                  <input
+                    type="radio"
+                    id="phone"
+                    value="phone"
+                    name="pay"
+                  />{" "}
+                  <label for="phone">휴대폰</label>
+                  <br></br>
+                  <input
+                    type="radio"
+                    id="nobank"
+                    value="nobank"
+                    name="pay"
+                  />{" "}
+                  <label for="nobank">무통장입금</label>
+                  <br></br>
+                </form>
               </td>
             </tr>
           </Table>
-        </div>
+        </Row>{" "}
         <button
           onClick={() => {
             setPay(1);
@@ -170,7 +171,7 @@ function CheckOut() {
         >
           결제하기
         </button>
-      </div>
+      </Container>
     </>
   );
 }
