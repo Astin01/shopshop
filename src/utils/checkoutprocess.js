@@ -1,45 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-
+import { loadTossPayments } from "@tosspayments/payment-sdk";
 import CheckoutForm from "./checkoutform";
-
-// Make sure to call loadStripe outside of a component’s render to avoid
-// recreating the Stripe object on every render.
-// This is a public sample test API key.
-// Don’t submit any personally identifiable information in requests made with this key.
-// Sign in to see your own test API key embedded in code samples.
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+import { useSelector } from "react-redux";
 
 export default function CheckOutprocess() {
-  const [clientSecret, setClientSecret] = useState("");
+  const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
+  let userInformation = useSelector((state) => {
+    return state.user;
+  });
 
-  useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
-    fetch("/create-payment-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
-  }, []);
+  let cartInfo = useSelector((state) => {
+    return state.cartItem;
+  });
 
-  const appearance = {
-    theme: "stripe",
-  };
-  const options = {
-    clientSecret,
-    appearance,
-  };
-
-  return (
-    <>
-      {clientSecret && (
-        <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
-        </Elements>
-      )}
-    </>
-  );
+  loadTossPayments(clientKey).then((tossPayments) => {
+    tossPayments
+      .requestPayment("카드", {
+        // 결제 수단 파라미터
+        // 결제 정보 파라미터
+        amount: cartInfo.tprice,
+        orderId: "TUfXTCWu5eIkW2mLrFxpH",
+        orderName: cartInfo[0].name + "외" + cartInfo.length + "건",
+        customerName: userInformation.name,
+        successUrl: "http://localhost:8000/success",
+        failUrl: "http://localhost:8000/fail",
+      })
+      .catch(function (error) {
+        if (error.code === "USER_CANCEL") {
+          // 결제 고객이 결제창을 닫았을 때 에러 처리
+        } else if (error.code === "INVALID_CARD_COMPANY") {
+          // 유효하지 않은 카드 코드에 대한 에러 처리
+        }
+      });
+  });
+  return <></>;
 }

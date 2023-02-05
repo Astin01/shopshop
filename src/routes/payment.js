@@ -1,8 +1,12 @@
 import { Table, Form, Row, Container, Col, InputGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Item from "./item.js";
-import CheckOutprocess from "../utils/checkoutprocess.js";
+import React, { useState, useEffect } from "react";
+
+import { loadTossPayments } from "@tosspayments/payment-sdk";
+
 function CheckOut() {
+  let [pay, setPay] = useState(0);
   let item = useSelector((state) => {
     return state.cartItem;
   });
@@ -13,18 +17,32 @@ function CheckOut() {
   {
     item.map((item) => (price += item.tprice));
   }
-  debugger;
-  let cartItem = item.map((data, i) => (
-    <Item
-      key={i}
-      number={i}
-      id={data.id}
-      name={data.name}
-      count={data.count}
-      price={data.price}
-    ></Item>
-  ));
-  debugger;
+  useEffect(() => {
+    if (pay == 1) {
+      const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
+      debugger;
+      loadTossPayments(clientKey).then((tossPayments) => {
+        tossPayments
+          .requestPayment("카드", {
+            // 결제 수단 파라미터
+            // 결제 정보 파라미터
+            amount: price,
+            orderId: "TUfXTCWu5eIkW2mLrFxxH",
+            orderName: item[0].name + "외" + item.length + "건",
+            customerName: user.name,
+            successUrl: "http://localhost:8000/success",
+            failUrl: "http://localhost:8000/fail",
+          })
+          .catch(function (error) {
+            if (error.code === "USER_CANCEL") {
+              // 결제 고객이 결제창을 닫았을 때 에러 처리
+            } else if (error.code === "INVALID_CARD_COMPANY") {
+              // 유효하지 않은 카드 코드에 대한 에러 처리
+            }
+          });
+      });
+    }
+  }, [pay]);
   return (
     <>
       <div>
@@ -145,12 +163,13 @@ function CheckOut() {
             </tr>
           </Table>
         </div>
-        <div>
-          <form action="/create-checkout-session" method="POST">
-            <button type="submit">Checkout</button>
-          </form>
-          <button onClick={CheckOutprocess}>결제하기</button>
-        </div>
+        <button
+          onClick={() => {
+            setPay(1);
+          }}
+        >
+          결제하기
+        </button>
       </div>
     </>
   );

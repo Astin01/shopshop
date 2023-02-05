@@ -12,7 +12,6 @@ function ckLogin({ setLogin, setUser }) {
     } else {
       setUser(result.data.user);
       setLogin(1);
-      debugger;
     }
   });
 }

@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import CheckOut from "./routes/payment";
 import userInfo from "./utils/userInfo";
 import CheckOutprocess from "./utils/checkoutprocess";
+import Event from "./routes/Event";
+import { logresult } from "./utils/onLogin";
 
 const Detail = lazy(async () => await import("./routes/detail.js"));
 const Cart = lazy(async () => await import("./routes/cart"));
@@ -37,7 +39,7 @@ function App() {
   useEffect(() => {
     ckLogin({ setLogin, setUser });
     dispatch(userInfo());
-  }, [login]);
+  }, [logresult]);
 
   function dataServer() {
     setLoading(true);
@@ -127,7 +129,7 @@ function App() {
           </Route>
           <Route path="/detail/:parms" element={<Detail shoes={shoes} />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" setLogin={setLogin} element={<Login />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/mypage" element={<Mypage />}>
             <Route path="user" element={<UserInfo />} />
@@ -136,15 +138,6 @@ function App() {
           <Route path="/create-payment-intent" element={CheckOutprocess} />
         </Routes>
       </Suspense>
-    </div>
-  );
-}
-
-function Event() {
-  return (
-    <div>
-      <h4>오늘의 이벤트</h4>
-      <Outlet></Outlet>
     </div>
   );
 }

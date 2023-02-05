@@ -42,6 +42,7 @@ let user = createSlice({
     pw: "test",
     email: "test@test.com",
   },
+
   extraReducers: (builder) => {
     builder.addCase(fetchData.pending, (state, action) => {
       state.status = "Loading";
@@ -62,7 +63,7 @@ let user = createSlice({
 });
 export let { increase, decrease, inCart, outCart } = cartItem.actions;
 
-export let { changeUi } = user.actions;
+export let { loginSt } = user.actions;
 
 export default configureStore({
   reducer: {
