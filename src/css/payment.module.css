@@ -1,6 +1,6 @@
 .table tr {
-  text-align: left;
+  text-align: center;
 }
 .table {
-  width: 800px;
+  table-layout: fixed;
 }

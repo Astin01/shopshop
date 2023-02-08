@@ -30,8 +30,8 @@ function CheckOut() {
             orderId: "TUfXTCWu5eIkW2mLrFxxH",
             orderName: item[0].name + "외" + item.length + "건",
             customerName: user.name,
-            successUrl: "http://localhost:8000/success",
-            failUrl: "http://localhost:8000/fail",
+            successUrl: "http://localhost:3000/success",
+            failUrl: "http://localhost:3000/fail",
           })
           .catch(function (error) {
             if (error.code === "USER_CANCEL") {
@@ -50,7 +50,7 @@ function CheckOut() {
           {" "}
           <Table className={styles.table}>
             <tr>
-              <th style={{ width: "10%" }}>구매자 정보</th>
+              <th>구매자 정보</th>
             </tr>
             <tr>
               <td>이름</td>
@@ -93,7 +93,7 @@ function CheckOut() {
         <Row>
           <Table className={styles.table}>
             <tr>
-              <th style={{ width: "30%", paddingLeft: "100px" }}>상품정보</th>
+              <th>상품정보</th>
               <th>수량</th>
               <th>가격</th>
             </tr>
@@ -110,7 +110,7 @@ function CheckOut() {
           {" "}
           <Table className={styles.table}>
             <tr>
-              <th style={{ width: "10%" }}>결제정보</th>
+              <th>결제정보</th>
             </tr>
             <tr>
               <td>총상품가격</td>
