@@ -1,5 +1,5 @@
 import axios from "axios";
-export let logresult = 0;
+
 function onLogin(e) {
   e.preventDefault();
   axios({
@@ -9,7 +9,7 @@ function onLogin(e) {
       id: e.target[0].value,
       pw: e.target[1].value,
     },
-  }).then((logresult = 1));
+  });
 }
 
 export { onLogin };

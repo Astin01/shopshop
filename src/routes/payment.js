@@ -18,9 +18,8 @@ function CheckOut() {
     item.map((item) => (price += item.tprice));
   }
   useEffect(() => {
+    const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
     if (pay == 1) {
-      const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
-      debugger;
       loadTossPayments(clientKey).then((tossPayments) => {
         tossPayments
           .requestPayment("카드", {
@@ -32,6 +31,32 @@ function CheckOut() {
             customerName: user.name,
             successUrl: "http://localhost:3000/success",
             failUrl: "http://localhost:3000/fail",
+          })
+          .catch(function (error) {
+            if (error.code === "USER_CANCEL") {
+              // 결제 고객이 결제창을 닫았을 때 에러 처리
+            } else if (error.code === "INVALID_CARD_COMPANY") {
+              // 유효하지 않은 카드 코드에 대한 에러 처리
+            }
+          });
+      });
+    }
+    if (pay == 2) {
+      loadTossPayments(clientKey).then((tossPayments) => {
+        tossPayments
+          .requestPayment("가상계좌", {
+            // 결제 수단 파라미터
+            // 결제 정보 파라미터
+            amount: price,
+            orderId: "TUfXTCWu5eIkW2mLrFxxH",
+            orderName: item[0].name + "외" + item.length + "건",
+            customerName: user.name,
+            successUrl: "http://localhost:3000/success",
+            failUrl: "http://localhost:3000/fail",
+            validHours: 24,
+            cashReceipt: {
+              type: "소득공제",
+            },
           })
           .catch(function (error) {
             if (error.code === "USER_CANCEL") {
@@ -86,7 +111,11 @@ function CheckOut() {
             </tr>
             <tr>
               <td>배송요청사항</td>
-              <td></td>
+              <td>
+                <InputGroup>
+                  <Form.Control as="textarea" aria-label="With textarea" />
+                </InputGroup>
+              </td>
             </tr>
           </Table>
         </Row>
@@ -131,42 +160,21 @@ function CheckOut() {
             <tr>
               <td>결제방법</td>
               <td>
-                <form action method="get">
-                  <input type="radio" id="bank" value="banksend" name="pay" />
-                  <label for="bank">계좌이체</label>
-                  <br></br>
-                  <input
-                    type="radio"
-                    id="credit"
-                    value="credit"
-                    name="pay"
-                  />{" "}
-                  <label for="credit">신용/체크카드</label>
-                  <br></br>
-                  <input
-                    type="radio"
-                    id="phone"
-                    value="phone"
-                    name="pay"
-                  />{" "}
-                  <label for="phone">휴대폰</label>
-                  <br></br>
-                  <input
-                    type="radio"
-                    id="nobank"
-                    value="nobank"
-                    name="pay"
-                  />{" "}
-                  <label for="nobank">무통장입금</label>
-                  <br></br>
-                </form>
+                <Form.Select id="payList" aria-label="paymentList">
+                  <option>결제수단</option>
+                  <option value="1">카드결제</option>
+                  <option value="2">무통장입금</option>
+                </Form.Select>
               </td>
             </tr>
           </Table>
         </Row>{" "}
         <button
           onClick={() => {
-            setPay(1);
+            let e = document.getElementById("payList");
+            let value = e.options[e.selectedIndex].value;
+            debugger;
+            setPay(parseInt(value));
           }}
         >
           결제하기

@@ -1,6 +1,16 @@
+import { useEffect, useState } from "react";
 import { Button, Container, Form, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { ckLogin } from "../utils/ckLogin";
 import { onLogin } from "../utils/onLogin";
-function Login() {
+import userInfo from "../utils/userInfo";
+function Login({ login, setLogin }) {
+  // let [login, setLogin] = useState(0);
+  let dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(userInfo());
+    ckLogin({ setLogin });
+  }, [login]);
   return (
     <Container>
       <Form onSubmit={onLogin}>
@@ -22,7 +32,13 @@ function Login() {
           </Form.Group>
         </Row>
         <Row>
-          <Button variant="primary" type="submit">
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={() => {
+              setLogin(1);
+            }}
+          >
             로그인
           </Button>
         </Row>

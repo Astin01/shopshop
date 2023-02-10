@@ -1,6 +1,6 @@
 import axios from "axios";
 
-function ckLogin({ setLogin, setUser }) {
+function ckLogin({ setLogin }) {
   axios({
     method: "get",
     url: "/ckLogin",
@@ -8,7 +8,6 @@ function ckLogin({ setLogin, setUser }) {
     if (result.data == "로그인안하셨는데요?") {
       setLogin(0);
     } else {
-      setUser(result.data.user);
       setLogin(1);
     }
   });

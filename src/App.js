@@ -8,15 +8,14 @@ import axios from "axios";
 import Recent from "./routes/recent";
 import { Login } from "./routes/login";
 import { SignIn } from "./routes/sigin";
-import { ckLogin } from "./utils/ckLogin";
 import Mypage from "./routes/mypage";
 import UserInfo from "./routes/user";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CheckOut from "./routes/payment";
 import userInfo from "./utils/userInfo";
 import Event from "./routes/event";
-import { logresult } from "./utils/onLogin";
 import OrderList from "./routes/orderList";
+import { onLogout } from "./utils/onLogout";
 
 const Detail = lazy(async () => await import("./routes/detail.js"));
 const Cart = lazy(async () => await import("./routes/cart"));
@@ -26,8 +25,6 @@ function App() {
   let [count, setCount] = useState(0);
   let [loading, setLoading] = useState(false);
   let [login, setLogin] = useState(0);
-  let [user, setUser] = useState({});
-  let dispatch = useDispatch();
   let shoesdata = shoes.map((data) => (
     <Shoe id={data.id} title={data.title} price={data.price}></Shoe>
   ));
@@ -36,11 +33,14 @@ function App() {
       localStorage.setItem("watched", JSON.stringify([]));
     }
   }, []);
-  useEffect(() => {
-    ckLogin({ setLogin, setUser });
-    dispatch(userInfo());
-  }, [logresult]);
-
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     ckLogin({ setLogin, setUser });
+  //   }, 10000);
+  // });
+  let user = useSelector((state) => {
+    return state.user;
+  });
   function dataServer() {
     setLoading(true);
     if (count == 0) {
@@ -91,7 +91,12 @@ function App() {
             <Nav className="ms-auto">
               {" "}
               <Nav.Link onClick={() => navigate("/mypage")}>{user.id}</Nav.Link>
-              <Nav.Link onClick={() => navigate("/logout")}>
+              <Nav.Link
+                onClick={() => {
+                  onLogout();
+                  setLogin(0);
+                }}
+              >
                 로그아웃
               </Nav.Link>{" "}
             </Nav>
@@ -127,7 +132,10 @@ function App() {
           </Route>
           <Route path="/detail/:parms" element={<Detail shoes={shoes} />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/login" setLogin={setLogin} element={<Login />} />
+          <Route
+            path="/login"
+            element={<Login login={login} setLogin={setLogin} />}
+          />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/mypage" element={<Mypage />}>
             <Route path="user" element={<UserInfo />} />
