@@ -1,6 +1,6 @@
 import { Toast } from "react-bootstrap";
 import ListGroup from "react-bootstrap/ListGroup";
-function Recent({ shoes }) {
+function Recent() {
   let watch = localStorage.getItem("watched");
   let parseWatch = JSON.parse(watch);
   let recentGroup;

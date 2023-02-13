@@ -29,14 +29,14 @@ function CheckOut() {
             orderId: "TUfXTCWu5eIkW2mLrFxxH",
             orderName: item[0].name + "외" + item.length + "건",
             customerName: user.name,
-            successUrl: "http://localhost:3000/success",
-            failUrl: "http://localhost:3000/fail",
+            successUrl: "http://localhost:3000/",
+            failUrl: "http://localhost:3000/checkout",
           })
           .catch(function (error) {
             if (error.code === "USER_CANCEL") {
-              // 결제 고객이 결제창을 닫았을 때 에러 처리
+              alert("취소되었습니다");
             } else if (error.code === "INVALID_CARD_COMPANY") {
-              // 유효하지 않은 카드 코드에 대한 에러 처리
+              alert("유효하지 않은 카드입니다");
             }
           });
       });
@@ -51,8 +51,8 @@ function CheckOut() {
             orderId: "TUfXTCWu5eIkW2mLrFxxH",
             orderName: item[0].name + "외" + item.length + "건",
             customerName: user.name,
-            successUrl: "http://localhost:3000/success",
-            failUrl: "http://localhost:3000/fail",
+            successUrl: "http://localhost:3000/",
+            failUrl: "http://localhost:3000/checkout",
             validHours: 24,
             cashReceipt: {
               type: "소득공제",
@@ -60,9 +60,9 @@ function CheckOut() {
           })
           .catch(function (error) {
             if (error.code === "USER_CANCEL") {
-              // 결제 고객이 결제창을 닫았을 때 에러 처리
+              alert("취소되었습니다");
             } else if (error.code === "INVALID_CARD_COMPANY") {
-              // 유효하지 않은 카드 코드에 대한 에러 처리
+              alert("유효하지 않은 요청입니다");
             }
           });
       });
@@ -173,7 +173,6 @@ function CheckOut() {
           onClick={() => {
             let e = document.getElementById("payList");
             let value = e.options[e.selectedIndex].value;
-            debugger;
             setPay(parseInt(value));
           }}
         >

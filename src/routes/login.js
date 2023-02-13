@@ -5,7 +5,6 @@ import { ckLogin } from "../utils/ckLogin";
 import { onLogin } from "../utils/onLogin";
 import userInfo from "../utils/userInfo";
 function Login({ login, setLogin }) {
-  // let [login, setLogin] = useState(0);
   let dispatch = useDispatch();
   useEffect(() => {
     dispatch(userInfo());

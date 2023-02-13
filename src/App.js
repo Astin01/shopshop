@@ -10,12 +10,11 @@ import { Login } from "./routes/login";
 import { SignIn } from "./routes/sigin";
 import Mypage from "./routes/mypage";
 import UserInfo from "./routes/user";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CheckOut from "./routes/payment";
-import userInfo from "./utils/userInfo";
 import Event from "./routes/event";
-import OrderList from "./routes/orderList";
 import { onLogout } from "./utils/onLogout";
+import ServiceCenter from "./routes/servicecenter";
 
 const Detail = lazy(async () => await import("./routes/detail.js"));
 const Cart = lazy(async () => await import("./routes/cart"));
@@ -33,11 +32,7 @@ function App() {
       localStorage.setItem("watched", JSON.stringify([]));
     }
   }, []);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     ckLogin({ setLogin, setUser });
-  //   }, 10000);
-  // });
+
   let user = useSelector((state) => {
     return state.user;
   });
@@ -139,7 +134,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/mypage" element={<Mypage />}>
             <Route path="user" element={<UserInfo />} />
-            <Route path="orderlist" element={<OrderList />} />
+            <Route path="servicecenter" element={<ServiceCenter />} />
           </Route>
           <Route path="/checkout" element={<CheckOut />}></Route>
         </Routes>

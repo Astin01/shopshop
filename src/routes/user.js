@@ -1,4 +1,4 @@
-import { Col, Container, Form, ListGroup, Row, Button } from "react-bootstrap";
+import { Container, Form, Row, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 function User() {
   let user = useSelector((state) => state.user);

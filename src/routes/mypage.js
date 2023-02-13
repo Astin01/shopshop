@@ -11,8 +11,8 @@ function Mypage() {
             <ListGroup.Item action onClick={() => navigate("./user")}>
               사용자 정보
             </ListGroup.Item>
-            <ListGroup.Item action onClick={() => navigate("./orderlist")}>
-              주문 정보
+            <ListGroup.Item action onClick={() => navigate("./servicecenter")}>
+              문의
             </ListGroup.Item>
           </ListGroup>
         </Col>
