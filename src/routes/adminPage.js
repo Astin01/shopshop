@@ -1,5 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import enterData from "../utils/enterData";
 export default function adminPage() {
   return (
     <>

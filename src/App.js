@@ -1,4 +1,4 @@
-import "./App.css";
+import "./css/App.css";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { lazy, Suspense, useEffect, useState } from "react";
 import data from "./data.js";
@@ -15,7 +15,7 @@ import CheckOut from "./routes/payment";
 import Event from "./routes/event";
 import { onLogout } from "./utils/onLogout";
 import ServiceCenter from "./routes/servicecenter";
-import adminPage from './routes/adminPage';
+import AdminPage from "./routes/adminPage";
 
 const Detail = lazy(async () => await import("./routes/detail.js"));
 const Cart = lazy(async () => await import("./routes/cart"));
@@ -71,7 +71,9 @@ function App() {
     <div div className="App">
       <Navbar bg="dark" variant="dark" className="app-navbar">
         <Container>
-          <Navbar.Brand href="/">Shop</Navbar.Brand>
+          <Navbar.Brand href="/">
+            <span className="logoTitle">Fruity</span>
+          </Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={() => navigate("/")}>Home</Nav.Link>
             <Nav.Link onClick={() => navigate("/event")}>Event</Nav.Link>
@@ -136,7 +138,7 @@ function App() {
           <Route path="/mypage" element={<Mypage />}>
             <Route path="user" element={<UserInfo />} />
             <Route path="servicecenter" element={<ServiceCenter />} />
-            <Rounte path="adminPage" element={<AdminPage/>}
+            <Route path="adminPage" element={<AdminPage />} />
           </Route>
           <Route path="/checkout" element={<CheckOut />}></Route>
         </Routes>

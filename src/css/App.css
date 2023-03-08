@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Tilt+Warp&display=swap");
+
+.App {
+  text-align: center;
+}
+
+.main-bg {
+  height: 300px;
+  background-image: url("/public/bg.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.start {
+  opacity: 0;
+}
+.end {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.logoTitle {
+  font-family: "Tilt Warp", cursive;
+}

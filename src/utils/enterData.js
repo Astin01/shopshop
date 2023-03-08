@@ -1,4 +1,5 @@
-function enterData(event) {
+import axios from "axios";
+export default function enterData(event) {
   event.preventDefault();
   axios({
     method: "post",
