@@ -2,7 +2,8 @@ import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Item from "./item.js";
-function Cart() {
+import { ckLogin } from "../utils/ckLogin.js";
+function Cart({ login }) {
   let item = useSelector((state) => {
     return state.cartItem;
   });
@@ -31,7 +32,13 @@ function Cart() {
       <tbody>{cartItem}</tbody>
       <tr>
         <td>
-          <button onClick={() => navigate("/checkout")}>결제하기</button>
+          <button
+            onClick={() =>
+              login == 1 ? navigate("/checkout") : navigate("/login")
+            }
+          >
+            결제하기
+          </button>
         </td>
       </tr>
     </Table>

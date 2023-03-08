@@ -148,7 +148,7 @@ function App() {
             />
           </Route>
           <Route path="/detail/:parms" element={<Detail shoes={shoes} />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart" element={<Cart login={login} />} />
           <Route
             path="/login"
             element={<Login login={login} setLogin={setLogin} />}

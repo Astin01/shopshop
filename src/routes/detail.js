@@ -73,7 +73,15 @@ function Detail(props) {
             step="1"
             min="1"
             max="100"
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value <= 0) {
+                setInput(1);
+              } else if (e.target.value > 100) {
+                setInput(100);
+              } else {
+                setInput(e.target.value);
+              }
+            }}
           />
           <button
             onClick={() =>
