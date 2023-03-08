@@ -1,7 +1,6 @@
 import axios from "axios";
 function onSignIn(event) {
   event.preventDefault();
-  console.log(event);
   axios({
     method: "post",
     url: "/signin",

@@ -14,6 +14,9 @@ function Mypage() {
             <ListGroup.Item action onClick={() => navigate("./servicecenter")}>
               문의
             </ListGroup.Item>
+            <ListGroup.Item action onClick={() => navigate("./adminPage")}>
+              관리자 페이지
+            </ListGroup.Item>
           </ListGroup>
         </Col>
         <Col>

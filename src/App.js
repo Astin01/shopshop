@@ -15,6 +15,7 @@ import CheckOut from "./routes/payment";
 import Event from "./routes/event";
 import { onLogout } from "./utils/onLogout";
 import ServiceCenter from "./routes/servicecenter";
+import adminPage from './routes/adminPage';
 
 const Detail = lazy(async () => await import("./routes/detail.js"));
 const Cart = lazy(async () => await import("./routes/cart"));
@@ -135,6 +136,7 @@ function App() {
           <Route path="/mypage" element={<Mypage />}>
             <Route path="user" element={<UserInfo />} />
             <Route path="servicecenter" element={<ServiceCenter />} />
+            <Rounte path="adminPage" element={<AdminPage/>}
           </Route>
           <Route path="/checkout" element={<CheckOut />}></Route>
         </Routes>
