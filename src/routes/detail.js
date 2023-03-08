@@ -32,7 +32,7 @@ function Detail(props) {
     };
   }, []);
   useEffect(() => {
-    setTimeout(() => setPopalert(false), 2000);
+    setTimeout(() => setPopalert(false), 10000);
   }, []);
   let { parms } = useParams();
   function isId(element) {
@@ -49,7 +49,9 @@ function Detail(props) {
   return (
     <div className={"container start " + fade}>
       {popalert == true ? (
-        <div className="alert alert-warning">2초 이내 구매시 할인</div>
+        <div className="alert alert-warning">
+          신규회원 가입시 10%할인 쿠폰 즉시 발급
+        </div>
       ) : null}
       <div className="row">
         <div className="col-md-6">
@@ -69,6 +71,8 @@ function Detail(props) {
             id="points"
             name="points"
             step="1"
+            min="1"
+            max="100"
             onChange={(e) => setInput(e.target.value)}
           />
           <button

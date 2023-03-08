@@ -16,6 +16,9 @@ import Event from "./routes/event";
 import { onLogout } from "./utils/onLogout";
 import ServiceCenter from "./routes/servicecenter";
 import AdminPage from "./routes/adminPage";
+import EventDetail from "./routes/EventDetail";
+import event1 from "./img/event.jpg";
+import event2 from "./img/event2.jpg";
 
 const Detail = lazy(async () => await import("./routes/detail.js"));
 const Cart = lazy(async () => await import("./routes/cart"));
@@ -125,8 +128,24 @@ function App() {
             }
           />
           <Route path="/event" element={<Event />}>
-            <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>} />
-            <Route path="two" element={<div>생일기념 쿠폰받기</div>} />
+            <Route
+              path="one"
+              element={
+                <EventDetail
+                  image={event1}
+                  title="1. 신규가입시 10%할인 쿠폰 즉시 지급"
+                />
+              }
+            />
+            <Route
+              path="two"
+              element={
+                <EventDetail
+                  image={event2}
+                  title="2. 매주 추첨을 통해 와인 사은품 지급"
+                />
+              }
+            />
           </Route>
           <Route path="/detail/:parms" element={<Detail shoes={shoes} />} />
           <Route path="/cart" element={<Cart />} />
