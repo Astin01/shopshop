@@ -4,13 +4,22 @@ import { useParams } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { inCart } from "../store";
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 function Detail(props) {
   let [popalert, setPopalert] = useState(true);
   let [input, setInput] = useState("");
   let [tab, setTab] = useState(0);
   let [fade, setFade] = useState("");
   let dispatch = useDispatch();
+
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   window.addEventListener("beforeunload", alertUser);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", alertUser);
+  //   };
+  // }, []);
   useEffect(() => {
     const watch = localStorage.getItem("watched");
     const parseWatch = JSON.parse(watch);
@@ -36,7 +45,7 @@ function Detail(props) {
   }, []);
   let { parms } = useParams();
   function isId(element) {
-    if (element.id == parms) {
+    if (element.title == parms) {
       return true;
     }
   }
@@ -45,7 +54,8 @@ function Detail(props) {
       alert("please write only number");
     }
   }, [input]);
-  const product = props.shoes.find(isId);
+  const product = props.fruit.find(isId);
+  console.log(props.fruit);
   return (
     <div className={"container start " + fade}>
       {popalert == true ? (
@@ -53,19 +63,14 @@ function Detail(props) {
           신규회원 가입시 10%할인 쿠폰 즉시 발급
         </div>
       ) : null}
-      <div className="row">
+      <div className="row" style={{ paddingTop: 10 }}>
         <div className="col-md-6">
-          <img
-            src={`https://codingapple1.github.io/shop/shoes${
-              product.id + 1
-            }.jpg`}
-            width="100%"
-          />
+          <img src={`../img/fruit/${product.title}.jpg`} width="100%" />
         </div>
         <div className="col-md-6">
           <h4 className="pt-5">{product.title}</h4>
           <p>{product.content}</p>
-          <p>{product.price}</p>
+          <p>{product.price}원</p>
           <input
             type="number"
             id="points"
