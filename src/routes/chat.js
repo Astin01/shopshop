@@ -1,14 +1,10 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import styles from "../css/serviceceneter.modeule.css";
 import { Row, Container, Button, InputGroup, Form } from "react-bootstrap";
-import { type } from "@testing-library/user-event/dist/type";
 import { io } from "socket.io-client";
 export default function ServiceCenter() {
   let user = useSelector((state) => state.user);
   let [send, setSend] = useState("");
-  let [submit, setSubmit] = useState(0);
   let [chat, setChat] = useState([]);
   let socket = io();
   socket.emit("joinroom");
@@ -19,7 +15,6 @@ export default function ServiceCenter() {
     setChat(copy);
     setSend("");
   });
-  // let eventSource;
   // eventSource = new EventSource("/message/" + user.id);
   // eventSource.addEventListener("test", function (e) {
   //   console.log(e.data);
@@ -88,12 +83,7 @@ export default function ServiceCenter() {
               className="btn btn-secondary"
               id="send"
               onClick={() => {
-                // let copy = [...chat];
-                // copy.push(send);
-                // setChat(copy);
                 socket.emit("room1-send", send);
-                console.log(send);
-                // setSubmit(1);
               }}
             >
               전송

@@ -1,12 +1,18 @@
 import { Toast } from "react-bootstrap";
 import ListGroup from "react-bootstrap/ListGroup";
+import { useNavigate } from "react-router-dom";
 function Recent() {
   let watch = localStorage.getItem("watched");
   let parseWatch = JSON.parse(watch);
   let recentGroup;
+  const navigate = useNavigate();
   if (parseWatch) {
     recentGroup = parseWatch.map((data) => (
-      <ListGroup.Item action href={`/detail/${data.id}`}>
+      <ListGroup.Item
+        onClick={() => {
+          navigate(`/detail/${data.title}`);
+        }}
+      >
         {data.title}
       </ListGroup.Item>
     ));

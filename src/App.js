@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import CheckOut from "./routes/payment";
 import Event from "./routes/event";
 import { onLogout } from "./utils/onLogout";
-import ServiceCenter from "./routes/servicecenter";
+import Chat from "./routes/chat";
 import AdminPage from "./routes/adminPage";
 import EventDetail from "./routes/EventDetail";
 import event1 from "./img/event/event1.jpg";
@@ -25,6 +25,7 @@ const Cart = lazy(async () => await import("./routes/cart"));
 
 function App() {
   const navigate = useNavigate();
+  let [fade, setFade] = useState("");
   let [fruit, setFruit] = useState([]);
   let [reload, setReload] = useState(0);
   // let [count, setCount] = useState(1);
@@ -117,6 +118,14 @@ function App() {
   //   }
   // }
   useEffect(() => {
+    setTimeout(() => {
+      setFade("end");
+    }, 100);
+    return () => {
+      setFade("");
+    };
+  }, []);
+  useEffect(() => {
     dataServer();
   }, [fruit]);
 
@@ -162,7 +171,7 @@ function App() {
               <div>
                 <div className="main-bg"></div>
                 <div className="container" style={{ paddingTop: 20 }}>
-                  <div className="row">
+                  <div className={"row start " + fade}>
                     <Fruit data={fruit} />
                   </div>
                   {/* {count < 3 ? (
@@ -195,7 +204,10 @@ function App() {
               }
             />
           </Route>
-          <Route path="/detail/:parms" element={<Detail fruit={fruit} />} />
+          <Route
+            path="/detail/:parms"
+            element={<Detail setFruit={setFruit} fruit={fruit} />}
+          />
           <Route path="/cart" element={<Cart login={login} />} />
           <Route
             path="/login"
@@ -204,7 +216,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/mypage" element={<Mypage />}>
             <Route path="user" element={<UserInfo />} />
-            <Route path="servicecenter" element={<ServiceCenter />} />
+            <Route path="chat" element={<Chat />} />
             <Route path="adminPage" element={<AdminPage />} />
           </Route>
           <Route path="/checkout" element={<CheckOut />}></Route>
